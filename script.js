@@ -31,8 +31,7 @@ function add_char(path, path_bar)
     if(path == 'myChart'){
         now_arr[now_arr.length] = U(now_arr);
     }else{
-            //now_arr[now_arr.length] = y(now_arr);
-            now_arr[now_arr.length] = 1000;
+            now_arr[now_arr.length] = y(now_arr);
     }
 
 
@@ -51,30 +50,38 @@ function add_char(path, path_bar)
 		options: {}
 	});
     var clone = now_arr.slice(0);
-    setTimeout(function (exp_info){
-        if(path_bar == 'exp_info'){
-            exp_info_set(clone);
-        }else {
-            if(path_bar == 'mid_info'){
-                y(set_arr_values());
-            }
-        }
-
+    setTimeout(function (){
+            exp_info_set(clone, path_bar);
     }, 1000);
 }
 
-function exp_info_set(arr){
+function exp_info_set(arr, path_bar){
     const arr1 = arr;
-    var res = arr1.splice(arr1.length-1,1);
 
-    var count_values =  count_rows;
-    var t = count_rows+1;
-    get('exp_info').innerText  =  'Кол-во наблюдений (n) - ' + count_values +
-     "\n Массив значений - " + arr1 +
-     "\n\n Ожидаемое значение - " + res +
-     "\n\n Вычесленное по формуле \n U( t+1 ) = a * y( t ) + ( 1-a ) * U( t )" +
-     "\n\n где a( параметр сглаживания ) = " + 2/(count_values + 1).toFixed(2) +
-     "\n\n t+1( номер предсказываемого наблюдения ) = " + t;
+    if(path_bar == 'exp_info'){
+        var res = arr1.splice(arr1.length-1,1);
+
+        var count_values =  count_rows;
+        var t = count_rows+1;
+        get('exp_info').innerText  =  'Кол-во наблюдений (n) - ' + count_values +
+         "\n Массив значений - " + arr1 +
+         "\n\n Ожидаемое значение U( t+1 ) - " + res +
+         "\n\n Вычесленное по формуле \n U( t+1 ) = a * y( t ) + ( 1-a ) * U( t )" +
+         "\n\n где a( параметр сглаживания ) = " + 2/(count_values + 1).toFixed(2) +
+         "\n\n t+1( номер предсказываемого наблюдения ) = " + t;
+    }
+    else {
+        if(path_bar == 'mid_info'){
+            var count_values =  count_rows;
+            var res = arr1.splice(arr1.length-1,1);
+            get('mid_info').innerText  = 'Кол-во наблюдений (n) - ' + count_values+
+            "\n Массив значений - " + arr1 +
+            "\n\n Ожидаемое значение y( t+1 )  - " + res +
+            "\n\n Вычесленное по формуле \n y( t+1 ) = m( t-1 ) + 1/n * ( y( t )- y( t-1 ) ) " +
+            "\n при n = 3 " +
+            "\n\n где m( t-1 )(скользящая средняя за два периода до прогнозного)";
+        }
+    }
 }
 
 function set_arr_caption(){
@@ -218,6 +225,16 @@ function a(arr){
 }
 
 function y(arr){
+    if(arr.length < 3){
+        return 0;
+    }
     const arr1 = arr;
-    get('mid_info').innerText  = arr.length;
+    var arr_mid = [];
+    arr_mid.length = arr1.length - 2;
+
+    for(var i =0; i < arr_mid.length ; i ++){
+        arr_mid[i] = (( +arr1[i] + +arr1[i+1] + +arr1[i+2])/3).toFixed(2);
+    }
+    var uuu = +(+arr_mid[arr_mid.length-1] + +(+arr[arr1.length-1] - +arr[arr1.length-2])/3);
+    return uuu.toFixed(2);
 }
