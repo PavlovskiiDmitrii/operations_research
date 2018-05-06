@@ -56,10 +56,16 @@ input{
     height: 140px;
     width: auto;
 }
+p{
+    font-size: 15px;
+    color: white;
+}
 
 .inner-header{
         background: #0f3e34;
         height: 200px;
+        text-align: center;
+        padding-top: 50px
 }
 .inner-content{
         background: #0f3e34;
@@ -96,8 +102,8 @@ canvas{
 }
 
 #z111{
-    margin-left: 10px;
-    font-size: 22px
+    margin-left: 0px;
+    font-size: 25px
 }
 #exp_info{
     margin-top: 10px;
@@ -105,9 +111,17 @@ canvas{
 }
 #z222{
     margin-left: 10px;
-    font-size: 22px
+    font-size: 32px
 }
 #mid_info{
+    margin-top: 10px;
+    font-size: 20px;
+}
+#z333{
+    margin-left: 10px;
+    font-size: 32px
+}
+#kv_info{
     margin-top: 10px;
     font-size: 20px;
 }
