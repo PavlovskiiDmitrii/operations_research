@@ -56,14 +56,23 @@ input{
     height: 140px;
     width: auto;
 }
-p{
-    font-size: 15px;
-    color: white;
+div p{
+    font-size: 25px;
+    color : red;
+    float: left;
+    margin-left: 50px;
 }
+ a:active{
+color: white; /* Цвет активной ссылки */
+ }
+ a:visited{
+color: Red; /* Цвет посещенной ссылки */
+ }
 
 .inner-header{
         background: #0f3e34;
         height: 200px;
+        font-size: 40px;
         text-align: center;
         padding-top: 50px
 }
@@ -81,6 +90,9 @@ p{
 }
 .inner-footer{
         background: #0f3e34;
+        font-size: 15px;
+        padding-left: 900px;
+        padding-top: 50px;
         height: 100px;
 }
 
