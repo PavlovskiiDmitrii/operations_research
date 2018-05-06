@@ -4,7 +4,9 @@
 <head>
      <meta charset="UTF-8">
      <link rel="stylesheet" href="style.css">
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
      <title>Document</title>
+     <script src="script.js"></script>
 </head>
 
 <body>
@@ -15,7 +17,7 @@
                </div>
           </div>
           <div id="table">
-               Таблица
+
                <div class="inner-table">
                     <div class="inner-input-text">
                          <table border="0">
@@ -31,32 +33,37 @@
                          </table>
                     </div>
                     <div class="innert-input-button">
-                        <button>Добавить</button>
-                        <button>Удалить</button>
+                        <button id="bt_add" >Добавить</button>
+                        <button id="bt_delete" >Удалить</button>
+                        <button id="get_result" >Посчитать</button>
                     </div>
                </div>
           </div>
           <div id="content1" class="row">
                <div class="content">
                     <div class="inner-content">
-                         Контент1
+                        График Экспоненциального сглаживания
+                         <canvas id="myChart"></canvas>
                     </div>
                </div>
                <div class="sidebar">
                     <div id="sidebar1" class="inner-sidebar">
-                         Сайдбар1
+                         <div id="z111">Экспоненциальное сглаживание</div>
+                         <div id="exp_info"></div>
                     </div>
                </div>
           </div>
           <div id="content2" class="row">
                <div class="sidebar">
                     <div id="sidebar2" class="inner-sidebar">
-                         Сайдбар2
+                        <div id="z222">Скользящее среднее</div>
+                        <div id="mid_info"></div>
                     </div>
                </div>
                <div class="content">
                     <div class="inner-content">
-                         Контент2
+                        График Скользицей средней
+                          <canvas id="myChart2"></canvas>
                     </div>
                </div>
           </div>

@@ -39,17 +39,16 @@ body{
 }
 
 #table{
+    padding-top: 40px;
     height: 200px;
     background: #0f3e34;
     margin-bottom: 10px;
 }
 table{
-	margin: 30px auto;
+	margin: auto;
 }
-td{
-	width: 45px;
-	height: 20px;
-	margin: 4px;
+input{
+	width: 55px;
 }
 
 .inner-table{
@@ -64,11 +63,15 @@ td{
 }
 .inner-content{
         background: #0f3e34;
-        min-height: 500px;
+        min-height: 550px;
+        padding-left: 20px;
 }
 .inner-sidebar{
         background: #0f3e34;
-        min-height: 500px;
+        min-height: 550px;
+        padding-top: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
 }
 .inner-footer{
         background: #0f3e34;
@@ -77,14 +80,28 @@ td{
 
 .inner-input-text{
     width: 70%;
-    background: red;
     float: left;
 }
 .innert-input-button{
     width: 30%;
-    background: black;
     float: left;
     height: inherit;
+}
+
+canvas{
+	margin: auto auto;
+	width: 850px;
+	height: 75%;
+    padding: 5px;
+}
+
+#z111{
+    margin-left: 10px;
+    font-size: 22px
+}
+#exp_info{
+    margin-top: 10px;
+    font-size: 20px;
 }
 
 .content{
