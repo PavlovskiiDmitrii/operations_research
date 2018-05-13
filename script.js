@@ -9,6 +9,9 @@ window.onload = function() {
 	get("bt_delete").onclick = function() {
 		delete_column();
 	};
+	get('set_fale').onclick = function(){
+		Set();
+	}
 	get("get_result").onclick = function() {
 		if (count_rows == 1) {
 			alert("Введите данные");
@@ -25,9 +28,39 @@ window.onload = function() {
 		}, 1000);
 	};
 };
+var file_set = false;
+var result_mass =[];
+
+function Set(){
+	var input = document.createElement('input');
+	input.type = 'file';
+
+	input.onchange = function(){
+		var fr = new FileReader();
+
+		fr.onload = function(info){
+				result_mass = info.target.result.split(";");
+				if(result_mass.length == 0 ||result_mass.length == 1 ){
+					alert("Введите данные");
+					return;
+				}
+				console.log(result_mass);
+		};
+		fr.readAsText(this.files[0]);
+		file_set = !file_set;
+		count_rows = result_mass.length;
+	}
+
+	input.click();
+}
 
 function add_char(path, path_bar) {
-	var now_arr = set_arr_values();
+	if(file_set){
+		var now_arr = result_mass.slice(0);
+	}else {
+		var now_arr = set_arr_values();
+	}
+	console.log(now_arr);
 	if (path == 'myChart') {
 		now_arr[now_arr.length] = U(now_arr);
 	} else {
@@ -63,24 +96,31 @@ function exp_info_set(arr, path_bar) {
 		var res = arr1.splice(arr1.length - 1, 1);
 		var count_values = count_rows;
 		var t = count_rows + 1;
-		get('exp_info').innerText = 'Кол-во наблюдений (n) - ' + count_values + "\n Массив значений - " + arr1 + "\n\n Ожидаемое значение U( t+1 )= " + res + "\n\n Вычесленное по формуле \n U( t+1 ) = a * y( t ) + ( 1-a ) * U( t )" + "\n\n где a( параметр сглаживания ) = " + 2 / (count_values + 1).toFixed(2) + "\n\n t+1( номер предсказываемого наблюдения ) = " + t;
+		get('exp_info').innerText = 'Кол-во наблюдений (n) - ' + count_values  + "\n\n Ожидаемое значение U( t+1 )= " + res + "\n\n Вычесленное по формуле \n U( t+1 ) = a * y( t ) + ( 1-a ) * U( t )" + "\n\n где a( параметр сглаживания ) = " + 2 / (count_values + 1).toFixed(2) + "\n\n t+1( номер предсказываемого наблюдения ) = " + t;
 	} else {
 		if (path_bar == 'mid_info') {
 			var count_values = count_rows;
 			var res = arr1.splice(arr1.length - 1, 1);
-			get('mid_info').innerText = 'Кол-во наблюдений (n) - ' + count_values + "\n Массив значений - " + arr1 + "\n\n Ожидаемое значение y( t+1 )= " + res + "\n\n Вычесленное по формуле \n y( t+1 ) = m( t-1 ) + 1/n * ( y( t )- y( t-1 ) ) " + "\n при n = 3 " + "\n\n где m( t-1 )(скользящая средняя за два периода до прогнозного)";
+			get('mid_info').innerText = 'Кол-во наблюдений (n) - ' + count_values + "\n\n Ожидаемое значение y( t+1 )= " + res + "\n\n Вычесленное по формуле \n y( t+1 ) = m( t-1 ) + 1/n * ( y( t )- y( t-1 ) ) " + "\n при n = 3 " + "\n\n где m( t-1 )(скользящая средняя за два периода до прогнозного)";
 		}
         else {
             var count_values = count_rows;
 			var res = arr1.splice(arr1.length - 1, 1);
 			get('kv_info').innerText = 'Кол-во наблюдений (n) - ' + count_values +
-             "\n Массив значений - " + arr1 +
               "\n\n Ожидаемое значение y( t+1 )= " + res;
         }
 	}
 }
 
 function set_arr_caption() {
+	if(file_set){
+		var mass =[];
+		for(var i =0; i < result_mass.length ; i ++){
+			mass[i] = i+1;
+		}
+		mass[mass.length] = "Предсказанный";
+		return mass;
+	}
 	var arr = [];
 	var j = 0;
 	var e = get("tr1");
